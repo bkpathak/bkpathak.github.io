@@ -6,21 +6,27 @@ pygments:         true
 permalink:        pretty
 
 # Setup
-title:            Poole
-tagline:          The Jekyll Butler
-url:              http://getpoole.com
+title:            Bijay K Pathak
+tagline:          'Machine Learning, Data Scince, Blogging'
+url:              http://bkpathak.github.io
 paginate:         1
 baseurl:          /
 author:
-  name:           Mark Otto
-  url:            https://twitter.com/mdo
-  email:          markdotto@gmail.com
+  name:           'Bijay K Pathak'
+  url:            https://twitter.com/bijay697
+  
 
 # Custom vars
 version:          1.0.0
 github:
-  repo:           https://github.com/poole/poole
+  repo:           https://github.com/bkpathak/bkpathak.github.io
 
 # Pages
 pages_list:
-   About: '/about'
+   About: '/about/'
+   Feed: '/atom.xml/'
+
+# Allow URL Redirects:
+# * https://help.github.com/articles/redirects-on-github-pages
+gems:
+  - jekyll-redirect-from
