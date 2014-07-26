@@ -24,7 +24,7 @@ github:
 # Pages
 pages_list:
    About: '/about/'
-   Feed: '/atom.xml/'
+   Feed: '/atom.xml'
 
 # Allow URL Redirects:
 # * https://help.github.com/articles/redirects-on-github-pages
