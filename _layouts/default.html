@@ -17,10 +17,10 @@
       </div>
 
       {{ content }}
+      {% includecomments.html %}
 
       <div class="footer">
         <p>
-          {% includecomments.html %}
           &copy; {{ site.time | date: '%Y' }}. All rights reserved.
           }
         </p>
