@@ -1,1 +1,1 @@
-This is site for blog on machine learning, data science and things that interests me.The site is on ![bkpathak.github.io](http://bkpathak.github.io/)
+This is site for blog on machine learning, data science and things that interests me.The site is on [bkpathak.github.io](http://bkpathak.github.io/)
