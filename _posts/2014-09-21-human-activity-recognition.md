@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Human Activity Recognition"
-comments: true
+comments: True
 permalink: "human-activity-recognition"
 ---
 
