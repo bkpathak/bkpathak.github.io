@@ -3,6 +3,7 @@ layout: post
 title: "Human Activity Recognition"
 comments: true
 permalink: "human-activity-recognition"
+---
 
 ### Introduction
 
