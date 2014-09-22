@@ -2,7 +2,7 @@
 layout: post
 title: "Human Activity Recognition"
 comments: true
-permalink: "huan-activity-recognition"
+permalink: "human-activity-recognition"
 
 ### Introduction
 
