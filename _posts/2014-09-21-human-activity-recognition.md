@@ -7,7 +7,7 @@ permalink: "human-activity-recognition"
 
 ### Introduction
 
-This is the project for the course [Practical Machine Learning]{https://class.coursera.org/predmachlearn-005} from the [Coursera]{https://www.coursera.org/}.This projects uses the accelerometer measurement of 6 people over the time. The data contains the accelerometer measurement mesurement for different type of acctivities and label identifying the quality of the activity.The goal of the project is to create the prediction model to predict the label for the test data sets given.
+This is the project for the course [Practical Machine Learning](https://class.coursera.org/predmachlearn-005) from the [Coursera](https://www.coursera.org/).This projects uses the accelerometer measurement of 6 people over the time. The data contains the accelerometer measurement mesurement for different type of acctivities and label identifying the quality of the activity.The goal of the project is to create the prediction model to predict the label for the test data sets given.
 
 The project describes each steps taken to build the model and all the preprocessing done in data sets to reach the mode.The data for the project is taken from [1]
 
