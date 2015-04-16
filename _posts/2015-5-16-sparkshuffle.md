@@ -102,7 +102,7 @@ We have made following changes to default Spark Shuffle Configuration:
 | Shuffle spill (memory) | 122.5 GB GB
 | Shuffle spill (disk) | 3.4 GB
 
-This are the basic `Spark` and `YARN` parameters that can be used to tune to increse the `Spark` performance. There isn't any perfect configuration but it all depends on your jobs and workloads, data distribution and parallelizing of the workflow. You should try with different permuation before finding the one that fits your use case.
+These are the basic `Spark` and `YARN` parameters that can be used to tune to increse the `Spark` performance. There isn't any perfect configuration but it all depends on your jobs and workloads, data distribution and parallelizing of the workflow. You should try with different permuation before finding the one that fits your use case.
 
 
 
