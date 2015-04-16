@@ -1,4 +1,9 @@
-#Spark Shuffle and Tuning
+---
+layout: post
+title: "Spark Shuffle Behaviour"
+comments: True
+permalink: "spark-shuffle-behaviour"
+---
 
 #### Background
 
