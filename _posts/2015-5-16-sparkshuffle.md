@@ -7,14 +7,14 @@ permalink: "spark-shuffle-behaviour"
 
 #### Background
 
-The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvent in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.
+The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvement in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.
 We have done experiment with the different configuration parameters available in spark to see the performance of the spark on peak load for our cluster.
 
 #### Cluster Configuration
  The cluster is Cloudera Enterprise Data Hub Edition Trial 5.3.1 with Spark 1.2.0 and Hadoop 2.5.0 .The following is the container configuration for  the cluster:
 
 * `yarn.scheduler.minimum-allocation-mb = 1GB` , minimum container size
-* `yarn.scheduler.maximum-allocation-mb = 4GB` , maximum conatainer size
+* `yarn.scheduler.maximum-allocation-mb = 4GB` , maximum container size
 * `yarn.scheduler.minimum-allocation-vcores = 1`, minimum cores for container
 * `yarn.scheduler.maximum-allocation-vcores = 4,`, maximum cores for container
 * `yarn.nodemanager.resource.manager.memory-mb = 14GB`, amount of physical memory that can be allocated to containers
@@ -57,7 +57,7 @@ Spark Sort:
 
 The resource usage for the sorting job with the **default Spark shuffle configuration** values:
 
->**Details for Stage 1**                                                  
+> **Details for Stage 1**                                                  
  
 |Parameters|Values
 |--------------------|-------------          
@@ -87,7 +87,7 @@ We have made following changes to default Spark Shuffle Configuration:
 
  With the above configuration change the metrics for the TeraSort job is shown below:
 
->** Stage 1**                                                  
+> **Stage 1**                                                  
  
 |Parameters|Values
 |--------------------|-------------          
