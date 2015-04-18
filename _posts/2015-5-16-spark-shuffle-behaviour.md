@@ -7,8 +7,7 @@ permalink: "spark-shuffle-behaviour"
 
 #### Background
 
-The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvement in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.
-We have done experiment with the different configuration parameters available in spark to see the performance of the spark on peak load for our cluster.
+The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvement in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.Here I have explained the `YARN` and  `Spark` parameter that are useful to optomize Spark shuffle performance.
 
 #### Cluster Configuration
  The cluster is Cloudera Enterprise Data Hub Edition Trial 5.3.1 with Spark 1.2.0 and Hadoop 2.5.0 .The following is the container configuration for  the cluster:
@@ -79,7 +78,7 @@ The resource usage for the sorting job with the **default Spark shuffle configur
 
 #### TeraSort after changing the Spark Shuffle Configuration
 
-We have made following changes to default Spark Shuffle Configuration:
+Following changes to default Spark Shuffle Configuration:
 >`spark.shuffle.consolidateFiles=true`  ` create consolidates files during shuffle `
 >`spark.shuffle.memoryFraction=0.4` `Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times`
 >`spark.shuffle.file.buffer.kb=64` `Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times`
