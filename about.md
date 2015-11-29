@@ -19,7 +19,9 @@ Please use below form to contact me.
 
 <form action="//formspree.io/pathakbijaykumar@gmail.com"
       method="POST">
+      Message:<br>
     <textarea name="body"></textarea>
+      Email:<br>
     <input type="email" name="_replyto">
     <input type="submit" value="Send">
 </form>
