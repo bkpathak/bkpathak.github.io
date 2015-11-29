@@ -12,7 +12,10 @@ I have created this website to blog about machine learning, data science and on 
 You can find me on [LinkedIn](http://www.linkedin.com/in/bijaykpathak/), [twitter](https://twitter.com/bijay697) and on [Github](https://github.com/bkpathak)
 
 Thanks for reading!
-<form action="//formspree.io/your@email.com"
+
+Please use below form to contact me.
+
+<form action="//formspree.io/pathakbijaykumar@gmail.com"
       method="POST">
     <input type="text" name="name">
     <input type="email" name="_replyto">
