@@ -19,7 +19,7 @@ Please use below form to contact me.
 
 <form action="//formspree.io/pathakbijaykumar@gmail.com"
       method="POST">
-      <textarea name="body" value="Message"></textarea>
+      <input type="textarea" name="body" value="Message"></textarea>
       <br>
     <input type="email" name="_replyto" value="Email">
     <input type="submit" value="Send">
