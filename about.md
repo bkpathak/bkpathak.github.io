@@ -13,6 +13,8 @@ You can find me on [LinkedIn](http://www.linkedin.com/in/bijaykpathak/), [twitte
 
 Thanks for reading!
 
+Bijay
+
 Please use below form to contact me.
 
 <form action="//formspree.io/pathakbijaykumar@gmail.com"
@@ -21,5 +23,3 @@ Please use below form to contact me.
     <input type="email" name="_replyto">
     <input type="submit" value="Send">
 </form>
-
-Bijay
