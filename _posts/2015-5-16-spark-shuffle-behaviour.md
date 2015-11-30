@@ -7,7 +7,7 @@ permalink: "spark-shuffle-behaviour"
 
 #### Background
 
-The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvement in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.Here I have explained the `YARN` and  `Spark` parameter that are useful to optomize Spark shuffle performance.
+The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvement in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.Here I have explained the `YARN` and  `Spark` parameter that are useful to optimize Spark shuffle performance.
 
 #### Cluster Configuration
  The cluster is Cloudera Enterprise Data Hub Edition Trial 5.3.1 with Spark 1.2.0 and Hadoop 2.5.0 .The following is the container configuration for  the cluster:
@@ -57,7 +57,7 @@ Spark Sort:
 The resource usage for the sorting job with the **default Spark shuffle configuration** values:
 
 > **Details for Stage 1**                                                  
- 
+
 |Parameters|Values
 |--------------------|-------------          
 | Total task times across all task|3.7 h                          |
@@ -87,7 +87,7 @@ Following changes are made to default Spark Shuffle Configuration:
  With the above configuration change the metrics for the TeraSort job is shown below:
 
 > **Stage 1**                                                  
- 
+
 |Parameters|Values
 |--------------------|-------------          
 | Total task times across all task|3.6 h                          |
@@ -107,16 +107,3 @@ Following changes are made to default Spark Shuffle Configuration:
 | Shuffle spill (disk) | 3.4 GB
 
 These are the basic `Spark` and `YARN` parameters that can be used to tune to increse the `Spark` performance. There isn't any perfect configuration but it all depends on your jobs and workloads, data distribution and parallelizing of the workflow. You should try with different permuation before finding the one that fits your use case.
-
-
-
-
-
-
-
-
-
-
-
-
- 
