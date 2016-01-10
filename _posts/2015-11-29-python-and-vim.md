@@ -86,6 +86,7 @@ The bundle for `python-mode` is:
 Bundle 'klen/python-mode'
 ```
 And run `:PluginInstall` to install. The complete documentation is provided on github or from inside the vim run `:help python-mode`. Below are the some settings that can be set for `python-mode`
+
 ```
 let g:pymode_rope = 1
 
