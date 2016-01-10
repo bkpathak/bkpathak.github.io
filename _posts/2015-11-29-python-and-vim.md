@@ -26,7 +26,7 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 Now create the `.vimrc` file under user home directory and add the following lines:
 
 ```
-set nocompatible              " be iMproved, required
+set nocompatible              " required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -51,4 +51,81 @@ Now the Vundle is configured and we can open the Vim and start the Vundle to do 
 Now we can start adding extensions to Vim:
 
 ### Code Folding
-We can have the Code folding feature of most modern IDE in Vim. [SimplyFold](https://github.com/tmhedberg/SimpylFold) is one such Vim extension
+We can have the Code folding feature of most modern IDE in Vim. [SimplyFold](https://github.com/tmhedberg/SimpylFold) is one such Vim extension. Add following line to `.vimrc`:
+```
+Plugin 'tmhedberg/SimpylFold'
+```
+And open the `vim` and run `:PluginInstall`.
+
+### Python Indentation
+For the `PEP8` indentation add the following line to the `.vimrc`:
+```
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=119
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+```
+This will give us 4 spaces when hit tab and line length doesn't cross 120 characters(80 char is standard but with wider display we can go little more) and stores in unix format to avoid conversion issues.
+
+### File Browsing
+NerdTree(https://github.com/scrooloose/nerdtree) provides the tree like file browser. Again to add using vundle add following lines to `.vimrc`:
+```
+Bundle 'scrooloose/nerdtree'
+```
+And open `vim` run `:PluginInstall`.
+
+### Python Mode
+Python-mode(https://github.com/klen/python-mode) adds lots of feature such as Lint, codecompletio, document lookup, jump to classes, refactoring tools.
+
+The bundle for `python-mode` is:
+```
+Bundle 'klen/python-mode'
+```
+And run `:PluginInstall` to install. The complete documentation is provided on github or from inside the vim run `:help python-mode`. Below are the some settings that can be set for `python-mode`
+```
+let g:pymode_rope = 1
+
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+
+"Linting
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+" Auto check on save
+let g:pymode_lint_write = 1
+
+" Support virtualenv
+let g:pymode_virtualenv = 1
+
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" Don't autofold code
+let g:pymode_folding = 0
+```
+
+The above settings helps:
+- Lookup Python docs using `k`
+- Automatically check code on saving, but only use `PyFlint` or `PyFlakes`
+- Support virtualenv
+- Use <leader>b to add a pdb shortcut (inserts import pdb; pdb.set_trace() ### XXX BREAKPOINT into your code
+- Enhanced syntax highlighting and formatting
+
+
+These are the basic settings that makes using with Python. I found these pointers in different blogs and sites and was very helpful to setup Vim for Python, so I posted here so someone may find it useful.
+
+#### Reference
+1. https://wiki.python.org/moin/Vim
+2. https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
