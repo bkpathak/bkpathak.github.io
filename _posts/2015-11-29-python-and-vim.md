@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Python and Vim"
+comments: True
+permalink: "python-and-vim"
+---
+
 Now days I am spending a quite a bit of time with Python from doing hobby project to implementing algorithms and data structures to writing Apache Spark code. Python is one of my favorite language. It's versatile easy to grasp and the logic behind the code can be expressed with simplicity and elegance. The Zen of Python from Tim Peters says all about Python. Zen of Python can be read in Python shell with the command ```import this```.
 
 I wrote Python with [PyCharm](https://www.jetbrains.com/pycharm/) and with two current popular text editor [Atom](https://atom.io/) and [Sublime](http://www.sublimetext.com/). PyCharm is best editor though sometime it feels slow. And both Atom and Sublime has good plugins that makes it simple and easier to work with Python.
@@ -59,6 +66,7 @@ And open the `vim` and run `:PluginInstall`.
 
 ### Python Indentation
 For the `PEP8` indentation add the following line to the `.vimrc`:
+
 ```
 au BufNewFile,BufRead *.py
     \ set tabstop=4
