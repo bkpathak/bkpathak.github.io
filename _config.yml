@@ -1,35 +1,30 @@
-# Dependencies
-markdown:         redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
-pygments:         true
-
 # Permalinks
 permalink:        pretty
 
 # Setup
-title:            Bijay K Pathak
-tagline:          'Machine Learning, Data Scince, Blogging'
-url:              http://bkpathak.github.io
-paginate:         1
-baseurl:          /
-author:
-  name:           'Bijay K Pathak'
-  url:            https://twitter.com/bijay697
-  
+name: Bijay K Pathak
+url:  http://bkpathak.github.io
+twitter:  bijay697
 
-# Custom vars
-version:          1.0.0
-github:
-  repo:           https://github.com/bkpathak/bkpathak.github.io
+# Conversion
+markdown: kramdown
+highlighter:  rouge
+lsi:  false
+port: 4000
+kramdown:
+  parse_block_html: true
+  syntax_highlighter: rouge
 
-# Pages
-pages_list:
-   About: '/about/'
-   Archive: '/archive'
-   Feed: '/atom.xml'
-
-# Allow URL Redirects:
-# * https://help.github.com/articles/redirects-on-github-pages
 gems:
-  - jekyll-redirect-from
+  - jekyll-sitemap
+
+exclude:
+  - .travis.yml
+  - validate.rb
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - bower_components
+  - update-vendor-deps.sh
+  - vendor/bundle
+  - vendor/bower.json
