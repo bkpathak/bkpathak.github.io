@@ -19,6 +19,8 @@ I am currently working as Software/Data Engineer in [Nike](http://www.nike.com).
 
 # Side Projects
 ---
-Update coming soon.
++ [Algorithm Collections](https://github.com/bkpathak/Algorithms-collections) Data Structures and Algorithm in Python
++ [Map Reduce Programs]() Hadoop Map-Reduce Programs in Java
++ [Balck Jack]() Text based Black Jack game in Python
 
 Last updated on {% include last-updated.txt %}
