@@ -1,23 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-
- <title></title>
- <link href="http://bkpathak.github.ioatom.xml" rel="self"/>
- <link href="http://bkpathak.github.io"/>
- <updated>2016-05-28T13:14:15-07:00</updated>
- <id>http://bkpathak.github.io</id>
- <author>
-   <name></name>
-   <email></email>
- </author>
-
- 
- <entry>
-   <title>Python and Vim</title>
-   <link href="http://bkpathak.github.io/python-and-vim"/>
-   <updated>2015-11-29T00:00:00-08:00</updated>
-   <id>http://bkpathak.github.io/python-and-vim</id>
-   <content type="html">&lt;p&gt;Now days I am spending a quite a bit of time with Python from doing hobby project to implementing algorithms and data structures to writing Apache Spark code. Python is one of my favorite language. It’s versatile easy to grasp and the logic behind the code can be expressed with simplicity and elegance. The Zen of Python from Tim Peters says all about Python. Zen of Python can be read in Python shell with the command &lt;code class=&quot;highlighter-rouge&quot;&gt;import this&lt;/code&gt;.&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bijay K Pathak</title>
+    <description></description>
+    <link>http://bkpathak.github.io</link>
+    <atom:link
+      href="http://bkpathak.github.io/atom.xml" rel="self"
+      type="application/rss+xml" />
+    
+    <item>
+      <title>Python and Vim</title>
+      <description>&lt;p&gt;Now days I am spending a quite a bit of time with Python from doing hobby project to implementing algorithms and data structures to writing Apache Spark code. Python is one of my favorite language. It’s versatile easy to grasp and the logic behind the code can be expressed with simplicity and elegance. The Zen of Python from Tim Peters says all about Python. Zen of Python can be read in Python shell with the command &lt;code class=&quot;highlighter-rouge&quot;&gt;import this&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;I wrote Python with &lt;a href=&quot;https://www.jetbrains.com/pycharm/&quot;&gt;PyCharm&lt;/a&gt; and with two current popular text editor &lt;a href=&quot;https://atom.io/&quot;&gt;Atom&lt;/a&gt; and &lt;a href=&quot;http://www.sublimetext.com/&quot;&gt;Sublime&lt;/a&gt;. PyCharm is best editor though sometime it feels slow. And both Atom and Sublime has good plugins that makes it simple and easier to work with Python.&lt;/p&gt;
 
@@ -153,15 +146,17 @@ let g:pymode_folding = 0
   &lt;li&gt;https://wiki.python.org/moin/Vim&lt;/li&gt;
   &lt;li&gt;https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/&lt;/li&gt;
 &lt;/ol&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Spark Shuffle Behaviour</title>
-   <link href="http://bkpathak.github.io/spark-shuffle-behaviour"/>
-   <updated>2015-05-16T00:00:00-07:00</updated>
-   <id>http://bkpathak.github.io/spark-shuffle-behaviour</id>
-   <content type="html">&lt;h4 id=&quot;background&quot;&gt;Background&lt;/h4&gt;
+</description>
+      <pubDate>
+        Sun, 29 Nov 2015 00:00:00 -0800
+      </pubDate>
+      <link>http://bkpathak.github.io/python-and-vim</link>
+      <guid isPermaLink="true">http://bkpathak.github.io/python-and-vim</guid>
+    </item>
+    
+    <item>
+      <title>Spark Shuffle Behaviour</title>
+      <description>&lt;h4 id=&quot;background&quot;&gt;Background&lt;/h4&gt;
 
 &lt;p&gt;The Spark has bottleneck on the shuffling while running jobs with non-trivial number of mappers and reducer. There has been lots of improvement in recent release on shuffling like consolidate file and sort-shuffling from version 1.1+.Here I have explained the &lt;code class=&quot;highlighter-rouge&quot;&gt;YARN&lt;/code&gt; and  &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark&lt;/code&gt; parameter that are useful to optimize Spark shuffle performance.&lt;/p&gt;
 
@@ -381,15 +376,17 @@ let g:pymode_folding = 0
 &lt;/table&gt;
 
 &lt;p&gt;These are the basic &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;YARN&lt;/code&gt; parameters that can be used to tune to increse the &lt;code class=&quot;highlighter-rouge&quot;&gt;Spark&lt;/code&gt; performance. There isn’t any perfect configuration but it all depends on your jobs and workloads, data distribution and parallelizing of the workflow. You should try with different permuation before finding the one that fits your use case.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Human Activity Recognition</title>
-   <link href="http://bkpathak.github.io/human-activity-recognition"/>
-   <updated>2014-09-21T00:00:00-07:00</updated>
-   <id>http://bkpathak.github.io/human-activity-recognition</id>
-   <content type="html">&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+</description>
+      <pubDate>
+        Sat, 16 May 2015 00:00:00 -0700
+      </pubDate>
+      <link>http://bkpathak.github.io/spark-shuffle-behaviour</link>
+      <guid isPermaLink="true">http://bkpathak.github.io/spark-shuffle-behaviour</guid>
+    </item>
+    
+    <item>
+      <title>Human Activity Recognition</title>
+      <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 
 &lt;p&gt;This is the project for the course &lt;a href=&quot;https://class.coursera.org/predmachlearn-005&quot;&gt;Practical Machine Learning&lt;/a&gt; from the &lt;a href=&quot;https://www.coursera.org/&quot;&gt;Coursera&lt;/a&gt;.This projects uses the accelerometer measurement of 6 people over the time. The data contains the accelerometer measurement mesurement for different type of acctivities and label identifying the quality of the activity.The goal of the project is to create the prediction model to predict the label for the test data sets given.The project describes each steps taken to build the model and all the preprocessing done in data sets to reach the mode.The data for the project is taken from [1].&lt;/p&gt;
 
@@ -538,8 +535,13 @@ write_to_files(preds)
 &lt;ol&gt;
   &lt;li&gt;Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human ‘13) . Stuttgart, Germany: ACM SIGCHI, 2013.&lt;/li&gt;
 &lt;/ol&gt;
-</content>
- </entry>
- 
-
-</feed>
+</description>
+      <pubDate>
+        Sun, 21 Sep 2014 00:00:00 -0700
+      </pubDate>
+      <link>http://bkpathak.github.io/human-activity-recognition</link>
+      <guid isPermaLink="true">http://bkpathak.github.io/human-activity-recognition</guid>
+    </item>
+    
+  </channel>
+</rss>
