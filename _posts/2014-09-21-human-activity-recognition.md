@@ -12,7 +12,7 @@ This is the project for the course [Practical Machine Learning](https://class.co
 [Here](http://bkpathak.github.io/human_activity_recognition/) is the detail analysis with output.
 
 
-### Data Preprocessing and Preparation 
+### Data Preprocessing and Preparation
 
 The ```caret``` package is used for this project.Training and test data sets are read and test data is not used until the model is built.
 
@@ -34,7 +34,7 @@ validation <- ptrain[-inTrain, ]
 We will now anlyse the each features of the ```ptrain1``` and remove feauters which do not contribute much to the final model.The features with almost *zero and NA values* are not useful for building model.Also, the feature having almost *zero variance* do not contribute.Other feature variable such as name do not contribute the model but make the prediction model more complex.Now we will analyze the ```ptrain1``` and remove those features and we will apply same to the ```validation``` set also.
 
 ```{r}
-# remove features with nearly with zero variance using 
+# remove features with nearly with zero variance using
 nzVar <-  nearZeroVar(ptrain1)
 ptrain1 <- ptrain1[, -nzVar]
 
@@ -75,7 +75,7 @@ prediction <- predict(modelFit1, newdata = validation)
 confusionMatrix(validation$classe, prediction)
 ```
 
-The performance of this model is less than satisfactory with just 38 % accuracy.The matrix shows there are lots of misclassification. The nnet is feed forward model so the neural network with back propagation may give more accuracy then just feed forward model. 
+The performance of this model is less than satisfactory with just 38 % accuracy.The matrix shows there are lots of misclassification. The nnet is feed forward model so the neural network with back propagation may give more accuracy then just feed forward model.
 
 ### Second Model Construction
 
@@ -107,10 +107,10 @@ The ```modelFit2``` build with ```Random Forest``` is far better then our previo
 
 Since we have divided our origan training data sets ```ptrain``` into ```ptrain1``` and ```validation``` for finding the *out-of-sample* error.Now we will build the model using complete trianing data sets ```ptrain```.We also apply the same data pre-processing steps on both ```ptrain``` and ```ptest``` data sets.
 
-#### Preprocessing on traing and test data sets 
+#### Preprocessing on traing and test data sets
 
 ```{r}
-# remove features with nearly with zero variance using 
+# remove features with nearly with zero variance using
 nzVar <-  nearZeroVar(ptrain)
 ptrain <- ptrain[, -nzVar]
 
@@ -163,4 +163,4 @@ write_to_files <- function(x) {
 # create prediction files to submit
 write_to_files(preds)
 ```
-1. Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013. 
+1. Velloso, E.; Bulling, A.; Gellersen, H.; Ugulino, W.; Fuks, H. Qualitative Activity Recognition of Weight Lifting Exercises. Proceedings of 4th International Conference in Cooperation with SIGCHI (Augmented Human '13) . Stuttgart, Germany: ACM SIGCHI, 2013.
