@@ -3,6 +3,7 @@ layout: base
 title: Bijay Pathak
 ---
 <div class="container">
+
   <div class="row">
     <div class="col-md-10 col-md-offset-1">
       {{ content }}
@@ -10,7 +11,7 @@ title: Bijay Pathak
   </div>
 
   <div class="row">
-    <div class="col-md-6 vcenter idxHdr">
+    <div class="col-md-4 col-md-offset-1 vcenter idxHdr">
       <ul class="list-inline idxIcons" style='font-size: 1.9em; margin-top: 0.5em;'>
         <li>
           <a href="http://github.com/bkpathak" target="_blank">
@@ -35,6 +36,11 @@ title: Bijay Pathak
       </ul>
     </div>
   </div>
-</div>
 
-{% include about_website.md %}
+
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      {% markdown about_website.md %}
+    </div>
+  </div>
+</div>

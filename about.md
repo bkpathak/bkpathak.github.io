@@ -2,10 +2,10 @@
 layout: about
 title: "About"
 ---
-<li>
-  <a href="{{ about.url }}">{{ post.title }}</a>
-  <div style="float: right">{{ post.date | date: "%B %e, %Y" }}</div>
-</li>
+
+# About
+
+---
 
 Hi there,
 
