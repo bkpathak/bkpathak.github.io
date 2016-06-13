@@ -9,6 +9,161 @@
       type="application/rss+xml" />
     
     <item>
+      <title>Scala Substitution Model</title>
+      <description>&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; model of expression evaluation is based on the principle of substitution
+model, in which variable names are replaced by the values they are bound to.The underlying
+idea is that all evaluation does is reduce an expression to a value, which is a term that
+does not need further evaluation. Values not include only constants, but tuple, constructors, and
+functions. The substitution model is formalized in the $\lambda-calculus$, which gives foundation for functional programming.&lt;/p&gt;
+
+&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; program expressions are evaluated in the same way we would evaluate a mathematical expression. For example we know the expression $(2&lt;em&gt;2) + (3 * 4)$ will be evaluated by first evaluating $2 * 2$ and $3&lt;/em&gt;4$ and finally $4 + 12$. &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; evaluation works in same way. Similarly in &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; non-primitive expression is evaluated as follows.
+1. Take the leftmost operator.
+2. Evaluate its operators (left before right).
+3. Apply the operator to operand values.&lt;/p&gt;
+
+&lt;p&gt;During the process, &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; evaluator &lt;em&gt;rewrites&lt;/em&gt; the program expression to another expression. The evaluation process finally converts the expression into value and the evaluation stops: assuming evaluation terminates else evaluation fails to reduce to final value and we have &lt;em&gt;infinite loop&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;expression-evaluation&quot;&gt;Expression Evaluation&lt;/h3&gt;
+&lt;p&gt;Expression evaluation works by rewriting the original expression. Rewriting works by performing simple steps called &lt;em&gt;reductions&lt;/em&gt;. For example, the evaluation of arithmetic expression is:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; def x = 2
+scala&amp;gt; def y = 5
+scala&amp;gt; (2 * x) + (4 * y)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;$\to (2 * 2) + (4 * y)$&lt;/p&gt;
+
+&lt;p&gt;$\to 4 + (4 * 5)$&lt;/p&gt;
+
+&lt;p&gt;$\to 4 + 20$&lt;/p&gt;
+
+&lt;p&gt;$\to 24$&lt;/p&gt;
+
+&lt;h3 id=&quot;function-evaluation&quot;&gt;Function Evaluation&lt;/h3&gt;
+&lt;p&gt;Function with parameters are evaluated similar to the operators in expressions. Following are the rules for function parameters evaluation:
+1. Evaluates all the function arguments from left-to-right.
+2. Replace the function application by the functions right-hand side, and, at the same time
+3. Replace all the formal parameters of the function by the actual arguments.&lt;/p&gt;
+
+&lt;p&gt;Below is the evaluation of the function parameters:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; def square(x: Double) = x * x
+scala&amp;gt; square(3 + 3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;$\to square(6)$&lt;/p&gt;
+
+&lt;p&gt;$\to 6 * 6$&lt;/p&gt;
+
+&lt;p&gt;$\to 36$&lt;/p&gt;
+
+&lt;h3 id=&quot;function-evaluation-strategy&quot;&gt;Function Evaluation Strategy&lt;/h3&gt;
+&lt;p&gt;There are two evaluation strategy for function with parameters namely &lt;code class=&quot;highlighter-rouge&quot;&gt;call-by-value&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;call-by-name&lt;/code&gt;. For expressions that use only pure function and can be reduced with substitution model, both yields the same final result. Let’s define the function &lt;code class=&quot;highlighter-rouge&quot;&gt;sumofSqaures&lt;/code&gt; and evaluate it with both &lt;code class=&quot;highlighter-rouge&quot;&gt;call-by-value&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;call-by-name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; def sumofSqaures(x: Int, y: Int) = square(x) + square(y)
+scala&amp;gt; sumofSqaures(2, 2 + 3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;call-by-value&lt;/em&gt;: &lt;em&gt;Call-by-value&lt;/em&gt; evaluates every function argument only once thus it avoids the repeated evaluation of arguments. Example:
+$\to sumofSqaures(2, 5)$&lt;/p&gt;
+
+    &lt;p&gt;$\to square(2) + square(5)$&lt;/p&gt;
+
+    &lt;p&gt;$\to 2*2 + 5 * 5$&lt;/p&gt;
+
+    &lt;p&gt;$\to 4 + 25$&lt;/p&gt;
+
+    &lt;p&gt;$\to 29$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;call-by-name&lt;/em&gt;: &lt;em&gt;Call-by-name&lt;/em&gt; avoids evaluation of parameters if it is not used in the function body. Example:&lt;/p&gt;
+
+    &lt;p&gt;$\to square(2) + sqaure(2 + 3)$&lt;/p&gt;
+
+    &lt;p&gt;$\to square(2) + square( 2 + 3)$&lt;/p&gt;
+
+    &lt;p&gt;$\to 2 * 2 + square(2 + 3)$&lt;/p&gt;
+
+    &lt;p&gt;$\to 4 + (2 + 3) * (2 + 3)$&lt;/p&gt;
+
+    &lt;p&gt;$\to 4 + 5 * (2 * 3)$&lt;/p&gt;
+
+    &lt;p&gt;$\to 4 + 5 * 5$&lt;/p&gt;
+
+    &lt;p&gt;$\to 4 + 25$&lt;/p&gt;
+
+    &lt;p&gt;$\to 29$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;difference-between-call-by-value-and--call-by-name&quot;&gt;Difference between &lt;em&gt;Call-by-value&lt;/em&gt; and  &lt;em&gt;Call-by-name&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Call-by-value&lt;/em&gt; is more efficient then &lt;em&gt;call-by-name&lt;/em&gt; . If &lt;em&gt;call-by-value&lt;/em&gt; evaluation of expression terminates then &lt;em&gt;call-by-name&lt;/em&gt; evaluation also terminates, too but the other direction is not true since &lt;em&gt;Call-by-value&lt;/em&gt;  might loop but &lt;em&gt;call-by-name&lt;/em&gt; would terminate. Example:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  scala&amp;gt; def loop:Int = loop
+  scala&amp;gt; def test(x: Int, y: Int) = x
+ &lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Then the evaluation of function &lt;code class=&quot;highlighter-rouge&quot;&gt;test(1, loop)&lt;/code&gt; is:
+  1. &lt;em&gt;Call-by-name&lt;/em&gt; evaluation reduces to $1$.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; $\to 1$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;Call-by-value&lt;/em&gt; evaluation leads to infinite loop.&lt;/p&gt;
+
+    &lt;p&gt;$\to test(1, loop)$&lt;/p&gt;
+
+    &lt;p&gt;$\to test(1, loop)$&lt;/p&gt;
+
+    &lt;p&gt;$\to …$&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; uses &lt;em&gt;call-by-value&lt;/em&gt; as a default since &lt;em&gt;call-by-value&lt;/em&gt; is often exponentially efficient then &lt;em&gt;call-by-name&lt;/em&gt;. We can force it to use &lt;em&gt;call-by-name&lt;/em&gt; by preceding the parameter types by $\Rightarrow$. Example:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;scala&amp;gt; def constOne(x: Int, y: &lt;/code&gt;$\Rightarrow$&lt;code class=&quot;highlighter-rouge&quot;&gt; Int) = 1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Following function call reduces to 1.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;scala&amp;gt; constOne(1, loop)
+
+unnamed0: Int = 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;And the below function call leads to infinite loop.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+scala&amp;gt; constOne(loop, 1) // Goes to infinite loop.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;The actual operation of &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; interpretor and compiler is more complex under the hood. Nevertheless, understanding the evaluation model helps us to know what the programming is doing and reason behind its correctness. The evaluation model is abstraction that hides the compiler details and help us understands the function parameters evaluations.&lt;/p&gt;
+
+&lt;h4 id=&quot;reference&quot;&gt;Reference&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.coursera.org/learn/progfun1/home/welcome&quot;&gt;Functional Programming Principles in Scala&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      <pubDate>
+        Sun, 12 Jun 2016 00:00:00 -0700
+      </pubDate>
+      <link>http://bkpathak.github.io/scala-substitution-model</link>
+      <guid isPermaLink="true">http://bkpathak.github.io/scala-substitution-model</guid>
+    </item>
+    
+    <item>
       <title>Python and Vim</title>
       <description>&lt;p&gt;Now days I am spending a quite a bit of time with Python from doing hobby project to implementing algorithms and data structures to writing Apache Spark code. Python is one of my favorite language. It’s versatile easy to grasp and the logic behind the code can be expressed with simplicity and elegance. The Zen of Python from Tim Peters says all about Python. Zen of Python can be read in Python shell with the command &lt;code class=&quot;highlighter-rouge&quot;&gt;import this&lt;/code&gt;.&lt;/p&gt;
 
@@ -207,17 +362,20 @@ let g:pymode_folding = 0
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark-submit --class com.github.ehiggs.spark.terasort.TeraGen --deploy-mode client --master yarn --num-executors 26 --driver-memory 1g --executor-memory 1g --executor-cores 1 --queue dev /tmp/spark-terasort-1.0-SNAPSHOT-jar-with-dependencies.jar 100g /user/bijay/terasortInput&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;The configuration parameters for Spark shufle with default values are:
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.consolidateFiles&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.spill &lt;/code&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.spill.compress&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.memoryFraction&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;0.2&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.compress&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;
-&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.file.buffer.kb&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;32&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.reducer.maxMbInFlight&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;48&lt;/code&gt;
-&amp;gt;  &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.manager&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;sort&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.sort.bypassMergeThreshold&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;200&lt;/code&gt;
-&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.blockTransferService&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;netty&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The configuration parameters for Spark shufle with default values are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.consolidateFiles&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.spill &lt;/code&gt;	&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.spill.compress&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.memoryFraction&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;0.2&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.compress&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.file.buffer.kb&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;32&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.reducer.maxMbInFlight&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;48&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.manager&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;sort&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.sort.bypassMergeThreshold&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;200&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.blockTransferService&lt;/code&gt; 	&lt;code class=&quot;highlighter-rouge&quot;&gt;netty&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Spark Sort:&lt;/p&gt;
 
@@ -297,11 +455,14 @@ let g:pymode_folding = 0
 
 &lt;h4 id=&quot;terasort-after-changing-the-spark-shuffle-configuration&quot;&gt;TeraSort after changing the Spark Shuffle Configuration&lt;/h4&gt;
 
-&lt;p&gt;Following changes are made to default Spark Shuffle Configuration:
-&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.consolidateFiles=true&lt;/code&gt;  ` create consolidates files during shuffle `
-&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.memoryFraction=0.4&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times&lt;/code&gt;
-&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.file.buffer.kb=64&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times&lt;/code&gt;
-&amp;gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.reducer.maxMbInFlight=96&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Maximum size (in megabytes) of map outputs to fetch simultaneously from each reduce task is increased by 2 times&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Following changes are made to default Spark Shuffle Configuration:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.consolidateFiles=true&lt;/code&gt;  ` create consolidates files during shuffle `&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.memoryFraction=0.4&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.shuffle.file.buffer.kb=64&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;spark.reducer.maxMbInFlight=96&lt;/code&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Maximum size (in megabytes) of map outputs to fetch simultaneously from each reduce task is increased by 2 times&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;With the above configuration change the metrics for the TeraSort job is shown below:&lt;/p&gt;
 

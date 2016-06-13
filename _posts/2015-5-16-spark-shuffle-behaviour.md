@@ -39,16 +39,17 @@ The Terasort is well known benchamrk for Hadoop cluster which basic idea is to g
 ```spark-submit --class com.github.ehiggs.spark.terasort.TeraGen --deploy-mode client --master yarn --num-executors 26 --driver-memory 1g --executor-memory 1g --executor-cores 1 --queue dev /tmp/spark-terasort-1.0-SNAPSHOT-jar-with-dependencies.jar 100g /user/bijay/terasortInput```
 
 The configuration parameters for Spark shufle with default values are:
-> `spark.shuffle.consolidateFiles` 	`false`
-> `spark.shuffle.spill `	`true`
-> `spark.shuffle.spill.compress` 	`true`
-> `spark.shuffle.memoryFraction` 	`0.2`
-> `spark.shuffle.compress` 	`true`
->`spark.shuffle.file.buffer.kb` 	`32`
-> `spark.reducer.maxMbInFlight` 	`48`
->  `spark.shuffle.manager` 	`sort`
-> `spark.shuffle.sort.bypassMergeThreshold` 	`200`
-> `spark.shuffle.blockTransferService` 	`netty`
+
+* `spark.shuffle.consolidateFiles` 	`false`
+* `spark.shuffle.spill `	`true`
+* `spark.shuffle.spill.compress` 	`true`
+* `spark.shuffle.memoryFraction` 	`0.2`
+* `spark.shuffle.compress` 	`true`
+* `spark.shuffle.file.buffer.kb` 	`32`
+* `spark.reducer.maxMbInFlight` 	`48`
+* `spark.shuffle.manager` 	`sort`
+* `spark.shuffle.sort.bypassMergeThreshold` 	`200`
+* `spark.shuffle.blockTransferService` 	`netty`
 
 Spark Sort:
 
@@ -79,10 +80,11 @@ The resource usage for the sorting job with the **default Spark shuffle configur
 #### TeraSort after changing the Spark Shuffle Configuration
 
 Following changes are made to default Spark Shuffle Configuration:
->`spark.shuffle.consolidateFiles=true`  ` create consolidates files during shuffle `
->`spark.shuffle.memoryFraction=0.4` `Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times`
->`spark.shuffle.file.buffer.kb=64` `Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times`
->`spark.reducer.maxMbInFlight=96` `Maximum size (in megabytes) of map outputs to fetch simultaneously from each reduce task is increased by 2 times`
+
+* `spark.shuffle.consolidateFiles=true`  ` create consolidates files during shuffle `
+* `spark.shuffle.memoryFraction=0.4` `Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times`
+* `spark.shuffle.file.buffer.kb=64` `Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times`
+* `spark.reducer.maxMbInFlight=96` `Maximum size (in megabytes) of map outputs to fetch simultaneously from each reduce task is increased by 2 times`
 
  With the above configuration change the metrics for the TeraSort job is shown below:
 

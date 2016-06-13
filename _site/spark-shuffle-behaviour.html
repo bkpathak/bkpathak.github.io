@@ -116,17 +116,20 @@
 
 <p><code class="highlighter-rouge">spark-submit --class com.github.ehiggs.spark.terasort.TeraGen --deploy-mode client --master yarn --num-executors 26 --driver-memory 1g --executor-memory 1g --executor-cores 1 --queue dev /tmp/spark-terasort-1.0-SNAPSHOT-jar-with-dependencies.jar 100g /user/bijay/terasortInput</code></p>
 
-<p>The configuration parameters for Spark shufle with default values are:
-&gt; <code class="highlighter-rouge">spark.shuffle.consolidateFiles</code> 	<code class="highlighter-rouge">false</code>
-&gt; <code class="highlighter-rouge">spark.shuffle.spill </code>	<code class="highlighter-rouge">true</code>
-&gt; <code class="highlighter-rouge">spark.shuffle.spill.compress</code> 	<code class="highlighter-rouge">true</code>
-&gt; <code class="highlighter-rouge">spark.shuffle.memoryFraction</code> 	<code class="highlighter-rouge">0.2</code>
-&gt; <code class="highlighter-rouge">spark.shuffle.compress</code> 	<code class="highlighter-rouge">true</code>
-&gt;<code class="highlighter-rouge">spark.shuffle.file.buffer.kb</code> 	<code class="highlighter-rouge">32</code>
-&gt; <code class="highlighter-rouge">spark.reducer.maxMbInFlight</code> 	<code class="highlighter-rouge">48</code>
-&gt;  <code class="highlighter-rouge">spark.shuffle.manager</code> 	<code class="highlighter-rouge">sort</code>
-&gt; <code class="highlighter-rouge">spark.shuffle.sort.bypassMergeThreshold</code> 	<code class="highlighter-rouge">200</code>
-&gt; <code class="highlighter-rouge">spark.shuffle.blockTransferService</code> 	<code class="highlighter-rouge">netty</code></p>
+<p>The configuration parameters for Spark shufle with default values are:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">spark.shuffle.consolidateFiles</code> 	<code class="highlighter-rouge">false</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.spill </code>	<code class="highlighter-rouge">true</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.spill.compress</code> 	<code class="highlighter-rouge">true</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.memoryFraction</code> 	<code class="highlighter-rouge">0.2</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.compress</code> 	<code class="highlighter-rouge">true</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.file.buffer.kb</code> 	<code class="highlighter-rouge">32</code></li>
+  <li><code class="highlighter-rouge">spark.reducer.maxMbInFlight</code> 	<code class="highlighter-rouge">48</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.manager</code> 	<code class="highlighter-rouge">sort</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.sort.bypassMergeThreshold</code> 	<code class="highlighter-rouge">200</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.blockTransferService</code> 	<code class="highlighter-rouge">netty</code></li>
+</ul>
 
 <p>Spark Sort:</p>
 
@@ -206,11 +209,14 @@
 
 <h4 id="terasort-after-changing-the-spark-shuffle-configuration">TeraSort after changing the Spark Shuffle Configuration</h4>
 
-<p>Following changes are made to default Spark Shuffle Configuration:
-&gt;<code class="highlighter-rouge">spark.shuffle.consolidateFiles=true</code>  ` create consolidates files during shuffle `
-&gt;<code class="highlighter-rouge">spark.shuffle.memoryFraction=0.4</code> <code class="highlighter-rouge">Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times</code>
-&gt;<code class="highlighter-rouge">spark.shuffle.file.buffer.kb=64</code> <code class="highlighter-rouge">Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times</code>
-&gt;<code class="highlighter-rouge">spark.reducer.maxMbInFlight=96</code> <code class="highlighter-rouge">Maximum size (in megabytes) of map outputs to fetch simultaneously from each reduce task is increased by 2 times</code></p>
+<p>Following changes are made to default Spark Shuffle Configuration:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">spark.shuffle.consolidateFiles=true</code>  ` create consolidates files during shuffle `</li>
+  <li><code class="highlighter-rouge">spark.shuffle.memoryFraction=0.4</code> <code class="highlighter-rouge">Fraction of Java heap to use for aggregation and cogroups during shuffles is increased by 2 times</code></li>
+  <li><code class="highlighter-rouge">spark.shuffle.file.buffer.kb=64</code> <code class="highlighter-rouge">Size of the in-memory buffer for each shuffle file output stream, in kilobytes is increased by 2 times</code></li>
+  <li><code class="highlighter-rouge">spark.reducer.maxMbInFlight=96</code> <code class="highlighter-rouge">Maximum size (in megabytes) of map outputs to fetch simultaneously from each reduce task is increased by 2 times</code></li>
+</ul>
 
 <p>With the above configuration change the metrics for the TeraSort job is shown below:</p>
 
@@ -311,6 +317,9 @@
 
   <script src="/vendor/js/jquery.min.js"></script>
   <script src="/vendor/js/bootstrap.min.js"></script>
+  <script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
   <script type="text/javascript"></script>
 </body>
 </html>
