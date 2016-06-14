@@ -41,6 +41,7 @@ $\to 24$
 
 ### Function Evaluation
 Function with parameters are evaluated similar to the operators in expressions. Following are the rules for function parameters evaluation:
+
 1. Evaluates all the function arguments from left-to-right.
 2. Replace the function application by the functions right-hand side, and, at the same time
 3. Replace all the formal parameters of the function by the actual arguments.
