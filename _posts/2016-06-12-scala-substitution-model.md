@@ -135,7 +135,7 @@ And the below function call leads to infinite loop.
 {% endhighlight %}
 
 ### Conclusion
-The actual operation of `Scala` interpretor and compiler is more complex under the hood. Nevertheless, understanding the evaluation model helps us to know what the programming is doing and reason behind its correctness. The evaluation model is abstraction that hides the compiler details and help us understands the function parameters evaluations.
+The actual operation of `Scala` interpretor and compiler is more complex under the hood. Nevertheless, understanding the evaluation model helps us to know what the program is doing and reason its correctness. The evaluation model is abstraction that hides the compiler details and help us understands how expressions and function with parameters are evaluated by `Scala` compiler.
 
 #### Reference
 1. [Functional Programming Principles in Scala](https://www.coursera.org/learn/progfun1/home/welcome)
