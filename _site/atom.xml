@@ -18,7 +18,7 @@ idea is that all evaluation does is reduce an expression to a value, which is a 
 does not need further evaluation. Values not include only constants, but tuple, constructors, and
 functions. The substitution model is formalized in the $\lambda-calculus$, which gives foundation for functional programming.&lt;/p&gt;
 
-&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; program expressions are evaluated in the same way we would evaluate a mathematical expression. For example we know the expression $(2&lt;em&gt;2) + (3 * 4)$ will be evaluated by first evaluating $2 * 2$ and $3&lt;/em&gt;4$ and finally $4 + 12$. &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; evaluation works in same way. Similarly in &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; non-primitive expression is evaluated as follows.
+&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; program expressions are evaluated in the same way we would evaluate a mathematical expression. For example we know the expression $ (2&lt;em&gt;2) + (3 * 4) $ will be evaluated by first evaluating $2 * 2$ and $3&lt;/em&gt;4$ and finally $4 + 12$. &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; evaluation works in same way. Similarly in &lt;code class=&quot;highlighter-rouge&quot;&gt;Scala&lt;/code&gt; non-primitive expression is evaluated as follows.
 1. Take the leftmost operator.
 2. Evaluate its operators (left before right).
 3. Apply the operator to operand values.&lt;/p&gt;
