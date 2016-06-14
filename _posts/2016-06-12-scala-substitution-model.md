@@ -95,7 +95,7 @@ $\to sumofSqaures(2, 5)$
     $\to 29$
 
 ### Difference between *Call-by-value* and  *Call-by-name*
-  *Call-by-value* is more efficient then *call-by-name* . If *call-by-value* evaluation of expression terminates then *call-by-name* evaluation also terminates, too but the other direction is not true since *Call-by-value*  might loop but *call-by-name* would terminate. Example:
+  *Call-by-value* is more efficient then *call-by-name* . If *call-by-value* evaluation of expression terminates then *call-by-name* evaluation also terminates, too but the other direction is not true since *call-by-value*  might loop infinitely but *call-by-name* would terminate. Example:
 
   {% highlight scala %}
     scala> def loop:Int = loop
