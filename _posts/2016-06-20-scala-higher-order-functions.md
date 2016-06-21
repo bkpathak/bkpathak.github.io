@@ -56,3 +56,51 @@ The part before `=>` is function parameter and after that is function body. So t
 def sumInts(a: Int, b: Int) = sum((x: Int) => x, a, b)
 def sumSqaures(a; Int, b:Int) = sum((x: Int) => x * x, a, b)
 {% endhighlight %}  
+
+### Currying
+Currying allows us to apply some argument to the function now and other at later time when required. The above sum function can be curried in the following way:
+
+{%  highlight scala %}
+def sum(f: Int => Int): (Int, Int) => Int = {
+  def sumF(a: Int, b: Int): Int =
+  if (a > b) 0 else f(a) + sumF(a + 1, b)
+  sumF
+}
+{% endhighlight %}
+
+The above *sum* function returns the *sumF* function which takes the number bound as arguments and returns and do the calculation. The above function can be utilized in the following way:
+
+{% highlight scala %}
+def sumInts = sum(x => x)
+def sumSquares = sum(x => x * x)
+sumInts(1, 10) + sumSquares(1, 10)
+{% endhighlight %}
+
+The above function is applied in the following ways:
+
+{% highlight scala %}
+sum(x => x)(1, 10) + sum(x => x * x)(1, 10)
+{% endhighlight %}
+
+where function *sum* is applied to identity and square function and and the resulting function is applied to the bound $1\ to\ 10$.
+
+The function application associates to the left. So for the arguments list *args1* and *args2*:
+
+$$f(args1)(args2)\ is\ equivalent\ to \ (f(args1))(args2)$$
+
+Moreover, any functions with multiple arguments can be curried. For example:
+
+{% highlight scala %}
+def multiply(m: Int, n: Int): Int = m * n
+{% endhighlight %}
+
+To curry the above function, we can use *scala* `curried`
+{% highlight scala %}
+def curriedMul = (multiply _).curried
+def mulByTwo = curriedMul(2)
+mulByTwo(10)
+{% endhighlight %}
+
+### Conclusion
+
+*Higher-order, anonymous and curried* functions provides way to abstract the code in higher level and more reusable code. Composing and reusing the code provides benefits through out the program and provides more flexibility in code.  
