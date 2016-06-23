@@ -8,7 +8,7 @@ use_math: true
 
 ### Introduction
 
-In *Scala* functions are first-class values which means functions are values just like other values in *Scala*. We can pass functions as arguments to other functions, stored the function in values, return the functions as a result from other functions.
+In *Scala* functions are first-class values which means functions just like other values in *Scala*. We can pass functions as arguments to other functions, stored the function in values, return the functions as a result from other functions.
 So, function which takes other function as parameters or return as result are called `higher-order` functions. Any *Scala* function with following properties can be *higher-order* functions. *Higher-order* functions let us write more general code and reusable code and lead us to `DRY` principle ( *Don't Repeat Yourself* ).
 
 Let's us look the below example:
