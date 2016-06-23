@@ -16,7 +16,7 @@ functions. The substitution model is formalized in the $\lambda-calculus$, which
 
 In `Scala` program expressions are evaluated in the same way we would evaluate a mathematical expression. For example we know the expression $(2 * 2) + (3 * 4)$ will be evaluated by first evaluating $2 * 2$ and $3 * 4$ and finally $4 + 12$. `Scala` evaluation works in same way. Similarly in `Scala` non-primitive expression is evaluated as follows.
 
-1. Take the leftmost operator.
+1. Take the operator with highest precedence.
 2. Evaluate its operands from left to right.
 3. Apply the operator to operand values.
 
