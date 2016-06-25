@@ -105,4 +105,8 @@ mulByTwo(10)
 
 ### Conclusion
 
-*Higher-order, anonymous and curried* functions provides way to abstract the code in higher level and more reusable code. Composing and reusing the code provides benefits through out the program and provides more flexibility in code.  
+*Higher-order, anonymous and curried* functions provides way to abstract the code in higher level and more reusable code. Composing and reusing the code provides benefits through out the program and provides more flexibility in code.
+
+
+#### Reference
+1. [Functional Programming Principles in Scala](https://www.coursera.org/learn/progfun1/home/welcome) 
