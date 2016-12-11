@@ -3,7 +3,7 @@ layout: index
 ---
 
 Hi! I am Bijay K Pathak and welcome to my corner in the Internet.
-I am currently working as Software/Data Engineer in [Nike](http://www.nike.com). I graduated from [Michigan Tech](http://www.mtu.edu) in 2014 with M.Sc. in Computer Science and Engineering with focus on machine learning and optimization. I am interested in data intensive application, functional programming and distributed system.  
+I am currently working as Software Engineer in Data Platform at [Intel](http://www.intel.com/content/www/us/en/homepage.html). I graduated from [Michigan Tech](http://www.mtu.edu) in 2014 with M.Sc. in Computer Science and Engineering with focus on machine learning and optimization. I am interested in data intensive application, functional programming and distributed system.  
 {% include cv.md %}
 
 # Recent Posts
