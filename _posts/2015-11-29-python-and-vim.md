@@ -91,7 +91,7 @@ Python-mode(https://github.com/klen/python-mode) adds lots of feature such as Li
 
 The bundle for `python-mode` is:
 ```
-Bundle 'klen/python-mode'
+Bundle 'python-mode/python-mode'
 ```
 And run `:PluginInstall` to install. The complete documentation is provided on github or from inside the vim run `:help python-mode`. Below are the some settings that can be set for `python-mode`
 
