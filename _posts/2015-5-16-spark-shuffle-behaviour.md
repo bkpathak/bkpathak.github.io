@@ -1,8 +1,9 @@
 ---
 layout: post
 title: "Spark Shuffle Behaviour"
-comments: True
-permalink: "spark-shuffle-behaviour"
+date: 2015-05-16
+categories: [Distributed Systems]
+tags: [spark, hadoop, yarn, performance]
 ---
 
 #### Background

@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Scala Higher Order Functions"
-comments: True
-permalink: "scala-higher-order-functions"
-use_math: true
+date: 2016-06-20
+categories: [Programming]
+tags: [scala, functional-programming]
+math: true
 ---
 
 ### Introduction

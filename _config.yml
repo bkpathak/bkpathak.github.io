@@ -1,30 +1,117 @@
-# Permalinks
-permalink:        pretty
+theme: jekyll-theme-chirpy
 
-# Setup
-name: Bijay K Pathak
-url:  http://bkpathak.github.io
-twitter:  bijay697
+lang: en
+timezone: America/Los_Angeles
 
-# Conversion
-markdown: kramdown
-highlighter:  rouge
-lsi:  false
-port: 4000
+title: Bijay K Pathak
+tagline: Software Engineer · Distributed Systems · Data Platform
+description: >-
+  Personal blog of Bijay K Pathak — writing about distributed systems,
+  data engineering, functional programming, and machine learning.
+
+url: "https://bkpathak.github.io"
+
+github:
+  username: bkpathak
+
+twitter:
+  username: bijay697
+
+social:
+  name: Bijay K Pathak
+  email: ""
+  links:
+    - https://twitter.com/bijay697
+    - https://github.com/bkpathak
+    - https://www.linkedin.com/in/bijaykpathak
+
+avatar: /assets/img/avatar.jpg
+
+theme_mode: # light | dark  (leave blank for auto)
+
+toc: true
+
+comments:
+  provider: false
+
+assets:
+  self_host:
+    enabled: false
+
+pwa:
+  enabled: false
+
+paginate: 10
+
+# -----------------------------------------------
+# Advanced
+# -----------------------------------------------
+
 kramdown:
-  parse_block_html: true
+  footnote_backlink: "&#8617;&#xfe0e;"
   syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 
-gems:
-  - jekyll-sitemap
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: false
+      toc: true
+      math: false
+      mermaid: false
+  - scope:
+      path: "_tabs"
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: ["<!-- ", " -->"]
+  endings: all
+  ignore:
+    envs: [development]
 
 exclude:
-  - .travis.yml
-  - validate.rb
+  - "*.gem"
+  - "*.gemspec"
   - README.md
-  - Gemfile
-  - Gemfile.lock
-  - bower_components
-  - update-vendor-deps.sh
+  - LICENSE
+  - LICENSE.md
+  - .travis.yml
   - vendor/bundle
-  - vendor/bower.json
+  - vendor/cache
+  - vendor/gems
+  - vendor/ruby
+  - _drafts
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
+
+# Markdown
+markdown: kramdown
+highlighter: rouge

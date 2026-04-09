@@ -1,8 +1,9 @@
 ---
 layout: post
 title: "Human Activity Recognition"
-comments: True
-permalink: "human-activity-recognition"
+date: 2014-09-21
+categories: [Machine Learning]
+tags: [machine-learning, r, random-forest]
 ---
 
 ### Introduction

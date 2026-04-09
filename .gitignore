@@ -1,7 +1,8 @@
 *.swp
-
 /_site/
-
+/.bundle/
+/vendor/
 bower_components
-
 .jekyll-metadata
+.jekyll-cache
+.sass-cache

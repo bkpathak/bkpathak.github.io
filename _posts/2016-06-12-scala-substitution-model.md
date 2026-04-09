@@ -1,9 +1,10 @@
 ---
 layout: post
 title: "Scala Substitution Model"
-comments: True
-permalink: "scala-substitution-model"
-use_math: true
+date: 2016-06-12
+categories: [Programming]
+tags: [scala, functional-programming]
+math: true
 ---
 
 ### Introduction

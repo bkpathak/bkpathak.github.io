@@ -1,38 +1,424 @@
+/* ============================================================
+   bkpathak.github.io — Modern Redesign
+   ============================================================ */
+
+/* --- Variables & Reset --- */
+:root {
+  --color-bg:           #ffffff;
+  --color-surface:      #f8fafc;
+  --color-text:         #0f172a;
+  --color-text-muted:   #64748b;
+  --color-text-faint:   #94a3b8;
+  --color-accent:       #2563eb;
+  --color-accent-hover: #1d4ed8;
+  --color-border:       #e2e8f0;
+  --color-border-light: #f1f5f9;
+  --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono:  'SFMono-Regular', 'Cascadia Mono', 'Fira Code', Consolas, monospace;
+  --content-width: 720px;
+  --header-height: 60px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 16px; }
+
 body {
-	padding-top: 70px;
-	
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  margin: 0;
+  padding-top: var(--header-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1 {
-	font-size: 2em;
-	margin: 0.2em 0;
+/* Hide the old Bootstrap navbar if it ever renders */
+.navbar { display: none !important; }
+
+
+/* ============================================================
+   HEADER / NAVBAR
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-height);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
 }
 
-.vcenter {
-	display: inline-block;
-	vertical-align: middle;
-	float: none;
+.header-inner {
+  max-width: var(--content-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-img {
-  margin: 3px;
-  padding: 3px;
-  border: 2px solid #eeeeee;
+.site-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text) !important;
+  text-decoration: none !important;
+}
+.site-brand:hover { color: var(--color-accent) !important; }
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-nav a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+.site-nav a:hover { color: var(--color-text); text-decoration: none; }
+
+.site-nav .social-link {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+
+/* ============================================================
+   HERO SECTION (index page)
+   ============================================================ */
+.hero {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 64px 24px 48px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-avatar {
+  flex-shrink: 0;
+}
+.hero-avatar a { text-decoration: none; }
+.hero-avatar img {
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-border);
+  display: block;
+  margin: 0;
+  padding: 0;
+  transition: border-color 0.2s ease;
+}
+.hero-avatar img:hover { border-color: var(--color-accent); }
+
+.hero-info h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin: 0 0 6px;
+  color: var(--color-text);
+}
+
+.hero-tagline {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin: 0 0 20px;
+  letter-spacing: 0.01em;
+}
+
+.hero-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.hero-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.hero-social a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: #eff6ff;
+  text-decoration: none;
+}
+.hero-social .fa { font-size: 0.85rem; }
+
+
+/* ============================================================
+   MAIN CONTENT (index page)
+   ============================================================ */
+.main-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+/* Intro paragraph */
+.main-content > p:first-child {
+  margin-top: 40px;
+  font-size: 0.975rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  padding-left: 16px;
+  border-left: 3px solid var(--color-accent);
+}
+.main-content > p:first-child a {
+  color: var(--color-text);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+}
+.main-content > p:first-child a:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Section headings */
+.main-content h1 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-faint);
+  margin: 52px 0 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Post / project lists */
+.main-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+}
+.main-content ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.main-content ul li:last-child { border-bottom: none; }
+
+.main-content ul li a {
+  color: var(--color-text);
+  font-size: 0.925rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s;
+  flex: 1;
+}
+.main-content ul li a:hover { color: var(--color-accent); }
+
+/* Date / secondary info on list items */
+.main-content ul li span,
+.main-content ul li em {
+  color: var(--color-text-faint);
+  font-size: 0.775rem;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
+}
+
+/* "View all" link */
+.main-content h4 {
+  margin: 16px 0 0;
+}
+.main-content h4 a {
+  font-size: 0.825rem;
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.main-content h4 a:hover { text-decoration: underline; }
+
+/* Projects description text after link */
+.main-content ul li a + * {
+  color: var(--color-text-muted);
+  font-size: 0.825rem;
+}
+
+/* HR */
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 32px 0;
+}
+
+/* Last updated */
+.main-content p:last-child {
+  font-size: 0.775rem;
+  color: var(--color-text-faint);
+  margin-top: 40px;
+  font-family: var(--font-mono);
+}
+
+
+/* ============================================================
+   SINGLE PAGE / BLOG POST / ABOUT
+   ============================================================ */
+.container {
+  max-width: var(--content-width) !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+/* Remove Bootstrap row negative margins in our narrow layout */
+.row { margin-left: 0 !important; margin-right: 0 !important; }
+.col-md-10, .col-md-8, [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  float: none !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+/* Post heading */
+.col-md-10 h1:first-child,
+.col-md-10 > h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 48px 0 8px;
+  color: var(--color-text);
+}
+
+.col-md-10 em:first-of-type {
+  color: var(--color-text-faint);
+  font-size: 0.825rem;
+  font-family: var(--font-mono);
+  font-style: normal;
+}
+
+/* Prose styles */
+.col-md-10 p,
+.col-md-10 li {
+  font-size: 0.975rem;
+  line-height: 1.8;
+  color: #1e293b;
+}
+
+.col-md-10 h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 36px 0 12px;
+}
+
+.col-md-10 h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 28px 0 10px;
+}
+
+.col-md-10 a {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+.col-md-10 a:hover { border-color: var(--color-accent); }
+
+/* Code blocks */
+pre, code {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+pre {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  overflow-x: auto;
+  margin: 24px 0;
+  line-height: 1.6;
+}
+code {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.825rem;
+}
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* Images in posts */
+.col-md-10 img {
   max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  margin: 8px 0;
+  padding: 0;
 }
 
-.idxHdr {
-    text-align: center;
-    line-height: 1;
+/* About page social icons */
+.list-inline.idxIcons { padding: 0; margin: 24px 0; }
+.list-inline.idxIcons li { display: inline-block; margin-right: 12px; }
+.list-inline.idxIcons a {
+  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  transition: color 0.15s;
 }
+.list-inline.idxIcons a:hover { color: var(--color-accent); }
 
-@media (max-width: 767px) {
-    .idxHdr {
-        width: 100%;
-    }
-    .idxIcons {
-        width: 7em;
-        margin-left: auto;
-        margin-right: auto;
-    }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 600px) {
+  .hero {
+    padding: 40px 20px 36px;
+  }
+  .hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .hero-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+  .hero-info h1 { font-size: 1.4rem; }
+  .main-content { padding: 0 20px 64px; }
+  .header-inner { padding: 0 20px; }
+  .site-nav .social-link { display: none; }
 }
