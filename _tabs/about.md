@@ -4,20 +4,26 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-Hi! I'm **Bijay K Pathak** — a Software Engineer working on Data Platform at [Intel](https://www.intel.com). I graduated from [Michigan Tech](https://www.mtu.edu) in 2014 with an M.Sc. in Computer Science and Engineering, with a focus on machine learning and optimization.
+Hi, I'm **Bijay K Pathak**, a Software Engineer at AWS working on distributed systems and networking infrastructure.
 
-I'm interested in data-intensive applications, functional programming, and distributed systems. In my free time I read books, play soccer, and explore functional programming concepts.
+I graduated from [Michigan Tech](https://www.mtu.edu) in 2015 with an M.Sc. in Computer Science, where I did early GPU work using CUDA C on clustering algorithms. Since then I've spent years going deep on Linux kernel networking, TCP/IP, DNS, eBPF, and distributed systems at scale.
 
-This site is where I catalog my learning experience and reflect on topics that interest me — software development, distributed systems, and programming in general.
+At AWS I work on Route 53, focusing on the Linux networking layer that powers one of the world's largest DNS services.
 
-## Side Projects
+Lately I've been focusing on AI infrastructure, specifically the networking layer that makes large-scale distributed training work. I'm interested in how frameworks like NCCL move data between GPUs, how RDMA and InfiniBand compare to Ethernet at scale, and what eBPF can tell us about what's actually happening on the wire during collective communication.
 
-- [Algorithm Collections](https://github.com/bkpathak/Algorithms-collections) — Data Structures & Algorithms in Python
-- Map Reduce Programs — Hadoop Map-Reduce programs in Java
-- Black Jack — Text-based Blackjack game in Python
+This site is where I document what I'm learning. I write about things I've built and debugged, including things that didn't work the first time.
 
-## Find me elsewhere
+## Current Focus
 
-- [GitHub](https://github.com/bkpathak)
-- [Twitter](https://twitter.com/bijay697)
-- [LinkedIn](https://www.linkedin.com/in/bijaykpathak)
+I'm building toward AI infrastructure engineering, specifically the intersection of kernel networking and distributed ML training. Recent work includes building an RDMA ring allreduce from scratch on SoftRoCE and tracing it with eBPF to understand QP lifecycle, latency, and what collective communication looks like at the kernel level.
+
+## Projects
+
+* [nccl-rdma-tracer](https://github.com/bkpathak/nccl-rdma-tracer) — eBPF tracer for RDMA operations, built to understand kernel-level behavior during AllReduce collective communication
+
+## Find Me
+
+* [GitHub](https://github.com/bkpathak)
+* [Twitter](https://twitter.com/bijay697)
+* [LinkedIn](https://www.linkedin.com/in/bijaykpathak)
