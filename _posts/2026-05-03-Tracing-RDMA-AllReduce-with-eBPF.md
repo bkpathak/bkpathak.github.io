@@ -1,14 +1,12 @@
 ---
 layout: post
 title: "Tracing RDMA AllReduce with eBPF"
-date: 2024-01-15
+date: 2026-05-03
 categories: [Distributed Systems, Networking]
 tags: [rdma, ebpf, nccl, infiniband, ai-infrastructure, networking]
 ---
 
-I've been trying to understand how AI training clusters actually move data between GPUs during training. You hear a lot about NCCL and InfiniBand, but most explanations stay at a high level, "use NCCL, it's fast." I wanted to go deeper, so I spent a few weeks building RDMA from scratch and tracing it with eBPF. This is what I learned.
-
-Fair warning: I'm not an expert in this area. I'm a distributed systems engineer trying to understand AI infrastructure. Some of this might be wrong, if so, I'd love to hear about it.
+Most explanations of NCCL and InfiniBand stay at a high level. I wanted to understand what actually happens at the kernel level during GPU-to-GPU data transfer, so I built an RDMA ring allreduce from scratch and traced it with eBPF. This is what I found.
 
 ## Why RDMA Matters for AI Training
 
@@ -158,7 +156,7 @@ That gap matters at scale. With 1000 GPUs, even 1ms of extra latency per AllRedu
 
 A few things I don't fully understand yet:
 
-- **Congestion control on RoCE**: how ECN and PFC work to prevent packet drops on lossless fabrics.
+- **Congestion control on RoCE**: how ECN and PFC work to prevent packet drops on lossless fabrics. I know it matters but haven't dug into it.
 - **NCCL's transport selection**: NCCL can use RDMA, shared memory, or TCP depending on topology. I haven't traced how it decides.
 - **Multi-rail**, large clusters use multiple NICs per node for bandwidth aggregation. I don't know how NCCL manages QPs across multiple rails.
 
