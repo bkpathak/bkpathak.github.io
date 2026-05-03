@@ -158,7 +158,7 @@ That gap matters at scale. With 1000 GPUs, even 1ms of extra latency per AllRedu
 
 A few things I don't fully understand yet:
 
-- **Congestion control on RoCE**: how ECN and PFC work to prevent packet drops on lossless fabrics. I know it matters but haven't dug into it.
+- **Congestion control on RoCE**: how ECN and PFC work to prevent packet drops on lossless fabrics.
 - **NCCL's transport selection**: NCCL can use RDMA, shared memory, or TCP depending on topology. I haven't traced how it decides.
 - **Multi-rail**, large clusters use multiple NICs per node for bandwidth aggregation. I don't know how NCCL manages QPs across multiple rails.
 
