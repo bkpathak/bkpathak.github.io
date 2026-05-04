@@ -6,7 +6,7 @@ categories: [Distributed Systems, Networking]
 tags: [rdma, ebpf, nccl, infiniband, ai-infrastructure, networking]
 ---
 
-Most explanations of NCCL and InfiniBand stay at a high level. I wanted to understand what actually happens at the kernel level during GPU-to-GPU data transfer, so I built an RDMA ring allreduce from scratch and traced it with eBPF. This is what I found.
+Most explanations of NCCL and InfiniBand stay at a high level. I wanted to understand what actually happens at the kernel level during GPU-to-GPU data transfer, so I built an RDMA ring allreduce from scratch and traced it with eBPF.
 
 ## Why RDMA Matters for AI Training
 
