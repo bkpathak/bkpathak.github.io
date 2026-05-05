@@ -14,14 +14,6 @@ Lately I've been focusing on AI infrastructure, specifically the networking laye
 
 This site is where I document what I'm learning. I write about things I've built and debugged, including things that didn't work the first time.
 
-## Current Focus
-
-I'm building toward AI infrastructure engineering, specifically the intersection of kernel networking and distributed ML training. Recent work includes building an RDMA ring allreduce from scratch on SoftRoCE and tracing it with eBPF to understand QP lifecycle, latency, and what collective communication looks like at the kernel level.
-
-## Projects
-
-* [nccl-rdma-tracer](https://github.com/bkpathak/nccl-rdma-tracer) — eBPF tracer for RDMA operations, built to understand kernel-level behavior during AllReduce collective communication
-
 ## Find Me
 
 * [GitHub](https://github.com/bkpathak)
