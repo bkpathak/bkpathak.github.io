@@ -1,0 +1,216 @@
+# Tracing NCCL AllReduce on Real GPU Hardware with eBPF
+
+In my [previous post](https://bkpathak.github.io/distributed%20systems/networking/2026/05/03/Tracing-RDMA-AllReduce-with-eBPF.html) I traced RDMA AllReduce on SoftRoCE using eBPF. SoftRoCE runs RDMA over the Linux kernel network stack, so eBPF could attach probes and observe the data path directly. This post moves to real GPU hardware: 8× Tesla V100 connected via NVLink on a Lambda Labs instance, running NCCL AllReduce and tracing with bpftrace.
+
+The question I wanted to answer: what can eBPF actually see when AllReduce runs on NVLink?
+
+---
+
+## Why AllReduce Matters for Inference
+
+When you run a large language model across multiple GPUs using tensor parallelism, each GPU holds a shard of the model weights. During the forward pass, every layer produces a partial result. Before moving to the next layer, GPUs need to sum those partial results across all ranks — that's AllReduce.
+
+AllReduce is on the critical path for every forward pass. Its latency directly adds to time-to-first-token. Understanding what happens during AllReduce, and what tools can observe it, is the starting point for understanding distributed inference performance.
+
+---
+
+## The Hardware
+
+Lambda Labs 8× Tesla V100 SXM2 (16GB each). Before running anything, I checked the GPU topology:
+
+```bash
+nvidia-smi topo -m
+```
+
+```
+        GPU0  GPU1  GPU2  GPU3  GPU4  GPU5  GPU6  GPU7
+GPU0     X    NV1   NV1   NV2   NV2   PHB   PHB   PHB
+GPU1    NV1    X    NV2   NV1   PHB   NV2   PHB   PHB
+GPU2    NV1   NV2    X    NV2   PHB   PHB   NV1   PHB
+GPU3    NV2   NV1   NV2    X    PHB   PHB   PHB   NV1
+GPU4    NV2   PHB   PHB   PHB    X    NV1   NV1   NV2
+GPU5    PHB   NV2   PHB   PHB   NV1    X    NV2   NV1
+GPU6    PHB   PHB   NV1   PHB   NV1   NV2    X    NV2
+GPU7    PHB   PHB   PHB   NV1   NV2   NV1   NV2    X
+```
+
+`NV1`/`NV2` means the GPUs are connected via NVLink (1 or 2 bonded links). `PHB` means the connection goes through the PCIe host bridge — slower, CPU-mediated. Not all GPU pairs have NVLink: GPU0 and GPU5, for example, communicate through PCIe. NCCL detects this topology automatically and picks the best path for each pair.
+
+NVLink is a direct GPU-to-GPU interconnect. Unlike SoftRoCE where data travels through the Linux kernel network stack, NVLink moves data in hardware. The CPU initiates the operation and steps back — it does not participate in the data transfer.
+
+---
+
+## The Experiment
+
+Two things running simultaneously: `nccl-tests` to drive AllReduce, and `bpftrace` to trace NCCL from the CPU side.
+
+### Building nccl-tests
+
+```bash
+git clone https://github.com/NVIDIA/nccl-tests.git
+cd nccl-tests
+make -j$(nproc) CUDA_HOME=/usr/local/cuda MPI=0
+```
+
+### The bpftrace Probe
+
+NCCL is a userspace library, so I used uprobes instead of kprobes. The probe attaches to `ncclAllReduce` entry and exit, measuring CPU-side latency:
+
+```bash
+#!/usr/bin/env bpftrace
+
+uprobe:/lib/x86_64-linux-gnu/libnccl.so.2:ncclAllReduce
+{
+    @start[tid] = nsecs;
+    printf("[%llu] ncclAllReduce called tid=%d count=%lu\n",
+           nsecs, tid, arg2);
+}
+
+uretprobe:/lib/x86_64-linux-gnu/libnccl.so.2:ncclAllReduce
+/@start[tid]/
+{
+    $latency_us = (nsecs - @start[tid]) / 1000;
+    printf("[%llu] ncclAllReduce returned tid=%d latency=%llu us\n",
+           nsecs, tid, $latency_us);
+    delete(@start[tid]);
+}
+```
+
+Start the tracer in one terminal:
+
+```bash
+sudo bpftrace trace_nccl.bt | tee nccl_trace.log &
+```
+
+Run nccl-tests across all 8 GPUs in another:
+
+```bash
+./nccl-tests/build/all_reduce_perf -b 1K -e 512M -f 2 -g 8 -n 20 -w 5 \
+    | tee allreduce_8gpu.txt
+```
+
+Then repeat with a single GPU as the baseline:
+
+```bash
+./nccl-tests/build/all_reduce_perf -b 1K -e 512M -f 2 -g 1 -n 20 -w 5 \
+    | tee allreduce_1gpu.txt
+```
+
+---
+
+## Results
+
+### nccl-tests: 8 GPU AllReduce
+
+```
+#       size    count    type   redop   time    algbw   busbw
+#        (B)                           (us)   (GB/s)  (GB/s)
+        1024      256   float     sum  213.02    0.00    0.01
+        4096     1024   float     sum  214.14    0.02    0.03
+      524288   131072   float     sum  138.46    3.79    6.63
+     8388608  2097152   float     sum  232.02   36.15   63.27
+    67108864 16777216   float     sum 1037.81   64.66  113.16
+   536870912 134217728  float     sum 7454.83   72.02  126.03
+# Avg bus bandwidth: 41.66 GB/s
+```
+
+### nccl-tests: 1 GPU baseline
+
+```
+#       size    count    type   redop   time    algbw   busbw
+#        (B)                           (us)   (GB/s)  (GB/s)
+        1024      256   float     sum   13.14    0.08    0.00
+      524288   131072   float     sum   13.28   39.48    0.00
+     8388608  2097152   float     sum   23.73  353.55    0.00
+   536870912 134217728  float     sum 1306.38  410.96    0.00
+# Avg bus bandwidth: 0 GB/s (no inter-GPU communication)
+```
+
+For 512MB: **1,306 us on 1 GPU vs 7,454 us on 8 GPUs**. The 8 GPU case is 5.7× slower for the same operation — that's the cost of AllReduce communication across 8 ranks over NVLink.
+
+The 1 GPU in-place result is even more telling: **7.26 us**. NCCL detects single GPU and skips communication entirely — pure no-op.
+
+### bpftrace: CPU-side latency
+
+8 GPU trace (steady state):
+
+```
+[623965419652] ncclAllReduce called tid=6693 count=134217728
+[623965425746] ncclAllReduce returned tid=6693 latency=6 us
+[623965427884] ncclAllReduce called tid=6693 count=134217728
+[623965433752] ncclAllReduce returned tid=6693 latency=5 us
+```
+
+1 GPU trace (steady state):
+
+```
+[1078537671078] ncclAllReduce called tid=6907 count=256
+[1078537676239] ncclAllReduce returned tid=6907 latency=5 us
+[1078537678282] ncclAllReduce called tid=6907 count=256
+[1078537683451] ncclAllReduce returned tid=6907 latency=5 us
+```
+
+**CPU-side latency is 5–7 us in both cases**, regardless of how many GPUs are involved or how much data is moving.
+
+---
+
+## What eBPF Cannot See
+
+For a 512MB AllReduce across 8 GPUs:
+
+| Measurement | Value |
+|---|---|
+| nccl-tests wall time | 7,454 us |
+| bpftrace CPU latency | 5–7 us |
+| eBPF blind spot | ~7,448 us (99.9%) |
+
+The CPU calls `ncclAllReduce`, hands off to the GPU driver, and gets control back in microseconds. The actual data transfer — 512MB moving across NVLink at 126 GB/s — happens entirely in hardware. eBPF never sees it.
+
+This is the fundamental difference from the SoftRoCE case. With SoftRoCE, RDMA data traveled through the kernel network stack: `rxe_post_send`, `rxe_poll_cq`, the verbs layer. eBPF could attach to those paths and observe the data moving. With NVLink, the kernel is not involved. The GPU driver programs the NVLink hardware directly, and data moves GPU-to-GPU without any CPU or kernel participation.
+
+What eBPF can tell you on NVLink:
+
+- When `ncclAllReduce` was called (timestamp, thread ID, element count)
+- When control returned to the CPU
+- CPU scheduling jitter — the occasional 13–22 us spikes are the OS scheduler, not NCCL
+
+What eBPF cannot tell you:
+
+- The actual data moving over NVLink
+- GPU kernel execution (reduce-scatter, all-gather phases)
+- DMA transfer timing
+- Which NVLink lanes carried the data
+
+To observe those, you need NVIDIA's own tooling: Nsight Systems for GPU timeline profiling, or CUPTI for low-level kernel tracing. eBPF stops at the CPU-GPU boundary.
+
+---
+
+## Connection to Inference
+
+During tensor-parallel inference, AllReduce fires after every transformer layer's attention and MLP computation. For an 8B parameter model with 32 layers, that's 64 AllReduce calls per forward pass (one after attention, one after MLP, per layer).
+
+The nccl-tests data gives a rough bound: 512MB AllReduce at 126 GB/s bus bandwidth takes ~7.5ms. Real inference tensors are smaller — activation tensors for a single forward pass are typically megabytes, not hundreds of megabytes — so the per-AllReduce overhead is lower. But it accumulates across 64 calls per token.
+
+This is why NVLink bandwidth matters for inference: faster interconnect means less time blocked on AllReduce, which directly reduces time-to-first-token.
+
+The next post will run actual inference with vLLM, measure time-to-first-token, and show AllReduce calls appearing in the bpftrace output during a real forward pass.
+
+---
+
+## Setup Summary
+
+All scripts are in the [nccl-rdma-tracer](https://github.com/bkpathak/nccl-rdma-tracer) repo under `nvlink-nccl/`.
+
+```
+nvlink-nccl/
+  setup.sh          # install bpftrace, build nccl-tests
+  trace_nccl.bt     # bpftrace probe for ncclAllReduce
+  results/
+    gpu_topology.txt
+    allreduce_8gpu.txt
+    allreduce_1gpu.txt
+    nccl_trace_8gpu.log
+    nccl_trace_1gpu.log
+```
+
+Instance: Lambda Labs 8× Tesla V100 SXM2, Lambda Stack Ubuntu 22.04, NCCL 2.26.
