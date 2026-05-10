@@ -1,4 +1,10 @@
-# Tracing NCCL AllReduce on Real GPU Hardware with eBPF
+---
+layout: post
+title: "Tracing NCCL AllReduce on Real GPU Hardware with eBPF"
+date: 2026-05-10
+categories: [Distributed Systems, Networking]
+tags: [nccl, ebpf, nvlink, gpu, ai-infrastructure, networking]
+---
 
 In my [previous post](https://bkpathak.github.io/distributed%20systems/networking/2026/05/03/Tracing-RDMA-AllReduce-with-eBPF.html) I traced RDMA AllReduce on SoftRoCE using eBPF. SoftRoCE runs RDMA over the Linux kernel network stack, so eBPF could attach probes and observe the data path directly. This post moves to real GPU hardware: 8× Tesla V100 connected via NVLink on a Lambda Labs instance, running NCCL AllReduce and tracing with bpftrace.
 
